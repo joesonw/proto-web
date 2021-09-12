@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option go_package = "github.com/joesonw/proto-web/pbgo/errors;errors_pb";
+package com.github.joesonw.proto_web.errors;
+
+import "google/protobuf/descriptor.proto";
+
+// 80042xxx
+
+extend google.protobuf.MessageOptions {
+    int32 grpcCode = 80042001;
+    int32 httpStatus = 80042002;
+    string format = 80042003;
+    bool temporary = 80042004;
+    bool fatal = 80042005;
+}

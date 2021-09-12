@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+option go_package = "pb/server;pbgo";
+package errors;
+
+import "openapi.proto";
+
+option (com.github.joesonw.proto_web.openapi.servers) = {
+    url: 'http://{environment}.example.com';
+    description: 'server url';
+    variables: {
+        key: 'environment';
+        value: {
+            default: 'dev';
+            description: 'choose environment';
+            enum: ['dev', 'staging', 'prod'];
+        };
+    };
+};
+option (com.github.joesonw.proto_web.openapi.security) = {
+    scopes: {
+        key: 'scope';
+        value: {
+            values: ['user', 'all']
+        };
+    }
+};
+option (com.github.joesonw.proto_web.openapi.tags)  = {
+    name: 'experimental';
+};
+option (com.github.joesonw.proto_web.openapi.info) = {
+    title: 'example service';
+    summary: 'this is just an example service';
+    description: 'this is description';
+    contact: {
+        name: 'admin';
+        email: 'admin@example.com';
+    };
+    license: {
+        name: 'MIT';
+    }
+    version: '0.0.1';
+};
+
+service Example {
+    option (com.github.joesonw.proto_web.openapi.prefix) = '/example';
+
+    rpc Unary(Unary.Request) returns (Unary.Response) {
+        option (com.github.joesonw.proto_web.openapi.path) = {
+            post: '/unary_echo/:id',
+            summary: 'unary request';
+            tags: ['experimental'];
+        };
+    }
+
+    rpc StreamResponse(Stream.Request) returns (stream Stream.Response) {
+        option (com.github.joesonw.proto_web.openapi.path) = {
+            stream: '/stream_response',
+        };
+    }
+
+    rpc StreamRequest(stream Stream.Request) returns (Stream.Response) {
+        option (com.github.joesonw.proto_web.openapi.path) = {
+            stream: '/stream_request',
+        };
+    }
+
+    rpc StreamDuplex(stream Stream.Request) returns (stream Stream.Response) {
+        option (com.github.joesonw.proto_web.openapi.path) = {
+            stream: '/stream_duplex',
+        };
+    }
+
+}
+
+message Unary {
+    message Request {
+        int32 id = 1 [(com.github.joesonw.proto_web.openapi.in_path) = 'id', (com.github.joesonw.proto_web.openapi.required) = true];
+        string message = 2;
+        string extra = 3 [(com.github.joesonw.proto_web.openapi.in_query) = 'extra'];
+    }
+
+    message Response {
+        string message = 1;
+        int64 test_header = 2 [(com.github.joesonw.proto_web.openapi.in_header) = 'test'];
+    }
+}
+
+message Stream {
+    message Request {
+        string message = 1;
+    }
+
+    message Response {
+        string message = 1;
+    }
+}

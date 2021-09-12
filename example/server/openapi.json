@@ -1,0 +1,223 @@
+{
+    "channels": {
+        "/example/stream_duplex": {
+            "publish": {
+                "message": {
+                    "payload": {
+                        "description": "",
+                        "properties": {
+                            "message": {
+                                "description": "",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                }
+            },
+            "subscribe": {
+                "message": {
+                    "payload": {
+                        "description": "",
+                        "properties": {
+                            "message": {
+                                "description": "",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "/example/stream_request": {
+            "publish": {
+                "message": {
+                    "payload": {
+                        "description": "",
+                        "properties": {
+                            "message": {
+                                "description": "",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                }
+            },
+            "subscribe": {
+                "message": {
+                    "payload": {
+                        "description": "",
+                        "properties": {
+                            "message": {
+                                "description": "",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "/example/stream_response": {
+            "publish": {
+                "message": {
+                    "payload": {
+                        "description": "",
+                        "properties": {
+                            "message": {
+                                "description": "",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                }
+            },
+            "subscribe": {
+                "message": {
+                    "payload": {
+                        "description": "",
+                        "properties": {
+                            "message": {
+                                "description": "",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                }
+            }
+        }
+    },
+    "externalDocs": null,
+    "info": {
+        "contact": {
+            "email": "admin@example.com",
+            "name": "admin",
+            "url": ""
+        },
+        "description": "this is description",
+        "license": {
+            "identifier": "",
+            "name": "MIT",
+            "url": ""
+        },
+        "summary": "this is just an example service",
+        "termsOfService": "",
+        "title": "example service",
+        "version": "0.0.1"
+    },
+    "openapi": "3.1",
+    "paths": {
+        "/example/unary_echo/:id": {
+            "post": {
+                "description": "",
+                "operationId": "",
+                "parameters": [
+                    {
+                        "allowEmptyValue": false,
+                        "deprecated": false,
+                        "description": "",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "description": "",
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "allowEmptyValue": false,
+                        "deprecated": false,
+                        "description": "",
+                        "in": "query",
+                        "name": "extra",
+                        "required": false,
+                        "schema": {
+                            "description": "",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "message": {
+                                        "description": "",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "description": ""
+                },
+                "responses": {
+                    "default": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "",
+                        "headers": {
+                            "test": {
+                                "description": "",
+                                "schema": {
+                                    "description": "",
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "unary request"
+            }
+        }
+    },
+    "security": [
+        {
+            "scope": [
+                "user",
+                "all"
+            ]
+        }
+    ],
+    "servers": [
+        {
+            "description": "server url",
+            "url": "http://{environment}.example.com",
+            "variables": {
+                "environment": {
+                    "default": "dev",
+                    "description": "choose environment",
+                    "enum": [
+                        "dev",
+                        "staging",
+                        "prod"
+                    ]
+                }
+            }
+        }
+    ],
+    "tags": [
+        {
+            "description": "",
+            "externalDocs": null,
+            "name": "experimental"
+        }
+    ]
+}

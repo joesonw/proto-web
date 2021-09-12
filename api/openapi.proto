@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+option go_package = "github.com/joesonw/proto-web/pbgo/openapi;openapi_pb";
+package com.github.joesonw.proto_web.openapi;
+
+import "google/protobuf/struct.proto";
+import "google/protobuf/descriptor.proto";
+import "validator.proto";
+
+// OpenAPI 3.1
+// 80041xxx
+
+extend google.protobuf.FileOptions {
+    Info info = 80041001;
+    repeated Server servers = 80041002;
+    repeated SecurityRequirement security = 80041003;
+    repeated Tag tags = 80041004;
+    ExternalDocumentation external_docs = 80041005;
+}
+
+extend google.protobuf.ServiceOptions {
+    string prefix = 80041101;
+}
+
+message Tag {
+    option (validator.validated) = true;
+
+    string name = 1 [(validator.required) = true];
+    string description = 2;
+    ExternalDocumentation external_docs = 3;
+}
+
+message Info {
+    option (validator.validated) = true;
+
+    string title = 1 [(validator.required) = true];
+    string summary = 2;
+    string description = 3;
+    string terms_of_service = 4;
+    Contact contact = 5;
+    License license = 6;
+    string version = 7 [(validator.required) = true];
+}
+
+message Contact {
+    option (validator.validated) = true;
+
+    string name = 1;
+    string url = 2;
+    string email = 3;
+}
+
+message License {
+    option (validator.validated) = true;
+
+    string name = 1 [(validator.required) = true];
+    string identifier = 2;
+    string url = 3;
+}
+
+message Server {
+    option (validator.validated) = true;
+
+    string url = 1;
+    string description = 2;
+    map<string, ServerVariable> variables = 3;
+}
+
+message ServerVariable {
+    option (validator.validated) = true;
+
+    repeated string enum = 1;
+    string default = 2 [(validator.required) = true];
+    string description = 3;
+}
+
+extend google.protobuf.MethodOptions {
+    Path path = 80041201;
+}
+
+message Path  {
+    string summary = 1;
+    repeated string tags = 3;
+    ExternalDocumentation external_docs = 4;
+    string id = 5;
+    bool deprecated = 6;
+    repeated SecurityRequirement security = 7;
+    repeated Server servers = 8;
+    string get = 9;
+    string put = 10;
+    string post = 11;
+    string delete = 12;
+    string options = 13;
+    string head = 14;
+    string patch = 15;
+    string trace = 16;
+    string stream = 17;
+}
+
+message ExternalDocumentation {
+    option (validator.validated) = true;
+
+    string description = 1;
+    string url = 2;
+}
+
+message SecurityRequirement {
+    option (validator.validated) = true;
+
+    message Scope {
+        repeated string values = 1;
+    }
+
+    map<string, Scope> scopes = 1;
+}
+
+extend google.protobuf.FieldOptions {
+    string in_query = 80041301;
+    string in_header = 80041302;
+    string in_path = 80041303;
+    string in_cookie = 80041304;
+    bool required = 80041305;
+    bool deprecated = 80041306;
+    bool allow_empty_value = 80041307;
+}

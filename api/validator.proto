@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option go_package = "github.com/joesonw/proto-web/pbgo/validator;validator_pb";
+package com.github.joesonw.proto_web.validator;
+
+import "google/protobuf/descriptor.proto";
+
+// 80043xxx
+
+extend google.protobuf.MessageOptions {
+    bool validated = 80043001;
+}
+
+extend google.protobuf.FieldOptions {
+    string custom = 80043101;
+    bool required = 80043102;
+    string max = 80043103;
+    string min = 80043104;
+    string len = 80043105;
+    string eq = 80043106;
+    string ne = 80043107;
+    string gt = 80043108;
+    string gte = 80043109;
+    string lt = 80043110;
+    string lte = 80043111;
+}

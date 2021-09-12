@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "pb/example;pbgo";
+package errors;
+
+import "errors.proto";
+
+message NotAuthenticated {
+    option (com.github.joesonw.proto_web.errors.grpcCode) = 10;
+    option (com.github.joesonw.proto_web.errors.httpStatus) = 401;
+}
+
+message NotAuthorized {
+    option (com.github.joesonw.proto_web.errors.grpcCode) = 11;
+    option (com.github.joesonw.proto_web.errors.httpStatus) = 403;
+    option (com.github.joesonw.proto_web.errors.format) = "'%s' is not allowed to access resource '%s'";
+
+    string subject = 1;
+    string resource = 2;
+}
+
+message NotFound {
+    option (com.github.joesonw.proto_web.errors.grpcCode) = 20;
+    option (com.github.joesonw.proto_web.errors.httpStatus) = 404;
+    option (com.github.joesonw.proto_web.errors.temporary) = true;
+
+    string resource = 1;
+}
